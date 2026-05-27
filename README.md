@@ -6,7 +6,7 @@ A full-stack admission management system built with Django REST Framework and Ne
 
 This repository contains two main parts:
 
-- `admissions/` and `core/` - Django backend with REST API endpoints.
+- `backend/` and `core/` - Django backend with REST API endpoints.
 - `frontend/` - Next.js frontend with reusable UI components and route pages.
 
 ## Features
@@ -21,7 +21,7 @@ This repository contains two main parts:
 
 - `manage.py` - Django project entry point.
 - `core/` - Django project settings, URLs, WSGI, and ASGI configuration.
-- `admissions/` - Django app containing models, serializers, views, admin, and API routes.
+- `backend/` - Django app containing models, serializers, views, admin, and API routes.
 - `frontend/` - Next.js application.
   - `frontend/app/` - App Router route entry points.
   - `frontend/components/pages/` - Page-level components.
@@ -42,7 +42,7 @@ Create and activate a Python virtual environment, then install dependencies:
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 

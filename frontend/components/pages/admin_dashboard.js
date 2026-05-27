@@ -57,7 +57,7 @@ export default function AdminDashboardPage() {
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_20px_80px_rgba(30,58,138,0.10)] md:p-8">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div className="space-y-2"><p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent">Administrative Monitoring Dashboard</p>
-              <h1 className="text-3xl font-semibold tracking-tight text-primary md:text-4xl">System Master Dashboard</h1>
+              <h1 className="text-3xl font-semibold tracking-tight text-primary md:text-4xl">Admin Dashboard</h1>
               <p className="max-w-3xl text-sm leading-6 text-muted-foreground md:text-base">Review applications, change status, edit details, and remove records from the admissions pipeline.</p>
             </div>
             <div className="flex gap-3"><Button variant="outline" onClick={fetchApplications} disabled={loading}>{loading ? "Refreshing..." : "Refresh"}</Button><Button asChild><a href="/admission">Open Form</a></Button></div>
@@ -78,13 +78,14 @@ export default function AdminDashboardPage() {
               {loading ? <TableRow className="border-slate-200 hover:bg-slate-50"><TableCell colSpan={6} className="py-12 text-center text-muted-foreground">Loading applications...</TableCell></TableRow> : records.length === 0 ? <TableRow className="border-slate-200 hover:bg-slate-50"><TableCell colSpan={6} className="py-12 text-center text-muted-foreground">No data registered in database.</TableCell></TableRow> : records.map((record) => (
                 <TableRow key={record.id} className="border-slate-200 hover:bg-slate-50"><TableCell className="font-semibold text-foreground">{record.applicant_name}</TableCell><TableCell className="text-muted-foreground">{GRADE_OPTIONS.find((item) => item.value === record.grade_level)?.label || record.grade_level}</TableCell><TableCell className="text-muted-foreground">{record.gender === "M" ? "Male" : record.gender === "F" ? "Female" : record.gender}</TableCell><TableCell className="max-w-65 text-muted-foreground">{record.activities?.length ? <div className="flex flex-wrap gap-2">{record.activities.map((activity) => <span key={activity} className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-foreground">{activity}</span>)}</div> : "None"}</TableCell>
                     <TableCell><Select value={record.status} onValueChange={(value) => handleStatusChange(record.id, value)}><SelectTrigger className={`w-37.5 border-slate-200 bg-white text-foreground ${STATUS_STYLES[record.status] || ""}`}><SelectValue /></SelectTrigger><SelectContent>{STATUS_OPTIONS.map((statusOption) => <SelectItem key={statusOption.value} value={statusOption.value}>{statusOption.label}</SelectItem>)}</SelectContent></Select></TableCell>
-                    <TableCell className="space-x-2 text-right"><Button variant="outline" size="sm" onClick={() => openEditDialog(record)}>Edit</Button><Button variant="destructive" size="sm" onClick={() => handleDelete(record.id)}>Delete</Button></TableCell></TableRow>
+                    <TableCell className="space-x-2 text-right"><Button variant="outline" size="sm" onClick={() => openEditDialog(record)}>Edit </Button><Button variant="destructive" size="sm" onClick={() => handleDelete(record.id)}>Delete</Button></TableCell></TableRow>
               ))}
             </TableBody>
           </Table></CardContent></Card>
       </div>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}><DialogContent className="max-w-2xl"><DialogHeader><DialogTitle>Modify Applicant Registry</DialogTitle></DialogHeader>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}><DialogContent className="max-w-2xl"><DialogHeader><DialogTitle>Edit Form Details</DialogTitle></DialogHeader>
+        <p className="text-sm text-muted-foreground">Only form details can be updated here. Uploaded files and images are not editable.</p>
         {editingItem ? <div className="space-y-4 py-2"><div className="space-y-2"><Label htmlFor="edit-applicant-name">Applicant Name</Label><Input id="edit-applicant-name" value={editingItem.applicant_name || ""} onChange={(e) => updateDraft("applicant_name", e.target.value)} /></div>
           <div className="space-y-2"><Label htmlFor="edit-grade-level">Grade Level</Label><Select value={editingItem.grade_level || ""} onValueChange={(value) => updateDraft("grade_level", value)}><SelectTrigger id="edit-grade-level"><SelectValue placeholder="Select grade level" /></SelectTrigger><SelectContent>{GRADE_OPTIONS.map((option) => <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>)}</SelectContent></Select></div>
           <div className="space-y-2"><Label>Gender</Label><Select value={editingItem.gender || "M"} onValueChange={(value) => updateDraft("gender", value)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="M">Male</SelectItem><SelectItem value="F">Female</SelectItem></SelectContent></Select></div>

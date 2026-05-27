@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', RedirectView.as_view(url='/api/', permanent=False)),
     path('admin/', admin.site.urls),
-    path('api/', include('admissions.urls')),
+    path('api/', include('backend.urls')),
 ]
 
 # Serve media in development

@@ -37,6 +37,9 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         names = validated_data.pop('activity_names', None)
+        # Keep uploaded assets immutable during edits from the dashboard.
+        validated_data.pop('image', None)
+        validated_data.pop('document', None)
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()

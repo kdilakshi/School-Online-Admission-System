@@ -1,0 +1,59 @@
+# Root .gitignore for Online Admission System
+
+# --- Python / Django ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+*.dist-info/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Django
+db.sqlite3
+local_settings.py
+staticfiles/
+
+# Media / uploads
+media/
+documents/
+images/
+
+# Environment files
+.env
+.env.*.local
+
+# --- Node / Next.js ---
+node_modules/
+.npm/
+package-lock.json
+yarn.lock
+.next/
+out/
+build/
+dist/
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+.history/
+.DS_Store
+Thumbs.db
+
+# --- Logs / coverage ---
+*.log
+*.coverage
+htmlcov/
+
+# Ignore compiled assets and caches
+.cache/
+.parcel-cache/
+
+# Optional: keep migrations under source control (do not ignore migrations/)
